@@ -1,0 +1,103 @@
+*  {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+  background: #111;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+.container {
+  padding: 0 0%;
+}
+
+.containerPlayers {
+  margin: 8% 30%;
+  color: white;
+  overflow-y: scroll;
+  max-height: 10rem;
+  background: #222;
+  padding: 5px;
+}
+.containerPredictions {
+  padding: 0% 25%;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+ 
+}
+
+.containerPredicionsPart {
+  margin: 10% 10%;
+  flex: 1;
+  overflow-y: scroll;
+  max-height: 3rem;
+  background: #222;
+  padding: 5px;
+  
+}
+
+.containerFinances {
+  margin: 8% 30%;
+  color: white;
+  overflow-y: scroll;
+  max-height: 3rem;
+  background: #222;
+  padding: 5px;
+}
+
+.containerPredictionsBox {
+  padding: 2% 2%;
+  background: #222;
+  border: black;
+  color: #fff;
+  margin-left: 50%;
+  margin-right: 20%;
+  margin-bottom: 20%;
+  margin-top: 10%;
+}
+
+.sidebarBox {
+  block-size: 1rem;
+  
+}
+
+
+.logo {
+  height: 50px;
+  width: 50px;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  background: #555;
+  color: #fff;
+  padding: 7px 35px;
+  cursor: pointer;
+} 
+  
+
+.btnP {
+  display: inline-block;
+  border: black;
+  background: #444;
+  color: #fff;
+  text-align: center;
+  padding: 7px 20px;
+  cursor: pointer;
+  margin: 0% 5%;
+}
+
+
+.btn:hover {
+  background: #666;
+}
