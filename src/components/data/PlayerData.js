@@ -6,8 +6,10 @@ export const PlayerData = () => {
         <div>
             {player.map((data, key) => {
                 return (
-                    <div key={key}>
-                        {data.first_name + " " + data.last_name}
+                    <div key={key} className="stats">
+                        {data.first_name + " " + data.last_name + " | " + data.position}
+                        <p>{"Marketvalue: " + data.market_val}</p>
+                        <p>{"Points: " + data.points}</p>
                     </div>
                 );
             })}

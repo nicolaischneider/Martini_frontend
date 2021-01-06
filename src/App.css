@@ -16,17 +16,25 @@ a {
 }
 
 .container {
-  padding: 0 0%;
+  padding: 0 0;
 }
 
 .containerPlayers {
-  margin: 8% 30%;
+  margin: 3% 30%;
   color: white;
-  overflow-y: scroll;
-  max-height: 10rem;
+  overflow-y: scroll; 
+  max-height: 40rem;
   background: #222;
   padding: 5px;
 }
+
+.stats {
+  border: 1px solid #fff;
+  padding: 1%;
+  margin: 1%;
+
+}
+
 .containerPredictions {
   padding: 0% 25%;
   color: white;
@@ -38,31 +46,27 @@ a {
 .containerPredicionsPart {
   margin: 10% 10%;
   flex: 1;
-  overflow-y: scroll;
-  max-height: 3rem;
   background: #222;
   padding: 5px;
-  
 }
 
 .containerFinances {
   margin: 8% 30%;
   color: white;
   overflow-y: scroll;
-  max-height: 3rem;
+  max-height: 40rem;
   background: #222;
   padding: 5px;
 }
 
 .containerPredictionsBox {
+  display: inline-block;
   padding: 2% 2%;
   background: #222;
   border: black;
   color: #fff;
   margin-left: 50%;
-  margin-right: 20%;
   margin-bottom: 20%;
-  margin-top: 10%;
 }
 
 .sidebarBox {
@@ -94,7 +98,18 @@ a {
   text-align: center;
   padding: 7px 20px;
   cursor: pointer;
-  margin: 0% 5%;
+  margin: 0% 5px;
+}
+
+.btnTrade {
+  align-self: flex-end;
+  border: black;
+  background: #444;
+  color: #fff;
+  text-align: center;
+  padding: 7px 10px;
+  cursor: pointer;
+  float: right;
 }
 
 

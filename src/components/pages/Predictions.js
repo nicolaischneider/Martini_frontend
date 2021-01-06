@@ -1,4 +1,6 @@
 import React from 'react';
+import {BuyData} from './../data/PredictionData';
+import {SellData} from './../data/PredictionData';
 
 function Predictions() {
     return (
@@ -6,19 +8,11 @@ function Predictions() {
       
        <div className="containerPredictions"> 
         <div className="containerPredicionsPart">
-           <ul class="list-group">
-            <li class="list-group-item list-group-item-primary">Buy 1</li>
-            <li class="list-group-item list-group-item-primary">Buy 2</li>
-            <li class="list-group-item list-group-item-primary">Buy 3</li>
-          </ul>
+          <BuyData/>
         </div>
        
         <div className="containerPredicionsPart">
-          <ul class="list-group">
-            <li class="list-group-item list-group-item-primary">Sell 1</li>
-            <li class="list-group-item list-group-item-primary">Sell 2</li>
-            <li class="list-group-item list-group-item-primary">Sell 3</li>
-          </ul>
+          <SellData/>
         </div> 
       </div> 
 
