@@ -15,28 +15,47 @@ a {
   text-decoration: none;
 }
 
+.headerStyle  {
+  background: #222;
+  color: white;
+  padding: 1% 1%;
+ 
+}
+
+.linkStyle {
+  color: #999;
+  padding: 0,5%;
+  font-size: 70%;
+  margin-left: 3%;
+}
+
+.linkStyle:hover {
+  color: white;
+}
+
 .container {
   padding: 0 0;
 }
 
 .containerPlayers {
-  margin: 3% 30%;
+  margin: -12% 30%;
   color: white;
   overflow-y: scroll; 
   max-height: 40rem;
-  background: #222;
-  padding: 5px;
+  padding: 1%;
 }
 
 .stats {
   border: 1px solid #fff;
+  border-radius: 8px 8px;
   padding: 1%;
   margin: 1%;
 
 }
 
 .containerPredictions {
-  padding: 0% 25%;
+  margin-top: -15%;
+  padding: 0% 15%;
   color: white;
   display: flex;
   flex-wrap: wrap;
@@ -44,34 +63,42 @@ a {
 }
 
 .containerPredicionsPart {
-  margin: 10% 10%;
+  margin-top: 7%;
+  margin-left: 10%;
   flex: 1;
-  background: #222;
   padding: 5px;
 }
 
 .containerFinances {
-  margin: 8% 30%;
   color: white;
-  overflow-y: scroll;
   max-height: 40rem;
-  background: #222;
-  padding: 5px;
+  margin: -10% 25%;
 }
 
 .containerPredictionsBox {
-  display: inline-block;
+  display: block;
   padding: 2% 2%;
-  background: #222;
-  border: black;
+  border: 1px solid white;
+  border-radius: 10px;
   color: #fff;
-  margin-left: 50%;
-  margin-bottom: 20%;
+  margin-left: 1%;
+  margin-right: 82%;
+  margin-top: -5%;
 }
 
 .sidebarBox {
-  block-size: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1%;
+  background: #111;
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px 10px;
+  margin-right: 82%;
+  margin-top: 5%;
+  margin-left: 1%;
   
+
 }
 
 
@@ -98,7 +125,8 @@ a {
   text-align: center;
   padding: 7px 20px;
   cursor: pointer;
-  margin: 0% 5px;
+  margin-right: 8%;
+  margin-bottom: 20%;
 }
 
 .btnTrade {
@@ -107,12 +135,16 @@ a {
   background: #444;
   color: #fff;
   text-align: center;
-  padding: 7px 10px;
+  box-sizing: 100%;
   cursor: pointer;
   float: right;
 }
 
 
-.btn:hover {
+.btnP:hover {
   background: #666;
+}
+
+.btnTrade:hover {
+  background:#666;
 }

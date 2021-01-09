@@ -27,7 +27,8 @@ class App extends Component {
               <Header />
             </div>
             <SidebarContent />
-            <Route exact path="/" component={Players}/>
+            <Route exact path="/" />
+            <Route exact path="/allplayers" component={Players}/>
             <Route path="/predictions" component={Predictions} />
             <Route path="/finances" component={Finances} />
               

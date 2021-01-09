@@ -7,7 +7,7 @@ export const FinancesData = () => {
             {transaction.map((data, key) => {
                 return (
                     <div key={key} className="stats">
-                        {data.transaction_type + " | " + data.traded_player_name}
+                        {data.traded_player_name + " " + data.transaction_type + " " + data.value }
                     </div>
                 );
             })}

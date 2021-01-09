@@ -8,7 +8,7 @@ export const BuyData = () => {
             {buy.map((data, key) => {
                 return (
                     <div key={key} className="stats">
-                       {data.first_name + " " + data.last_name}
+                       <p style={{fontWeight: "bold"}}>{data.first_name + " " + data.last_name}</p>
                        <button className="btnTrade">BUY</button>
                        <p>{"Price: " + data.price}</p>   
                     </div>
@@ -25,7 +25,7 @@ export const SellData = () => {
             {sell.map((data, key) => {
                 return (
                     <div key={key} className="stats">
-                        {data.first_name + " " + data.last_name}
+                        <p style={{fontWeight: "bold"}}>{data.first_name + " " + data.last_name}</p>
                         <button className="btnTrade">SELL</button>
                         <p>{"Price: " + data.price}</p> 
                     </div>
