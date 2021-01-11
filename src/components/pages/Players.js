@@ -15,9 +15,9 @@ function Players() {
 
 
 // PropTypes
-Players.propTypes = {
+/*Players.propTypes = {
     players: PropTypes.array.isRequired,
- 
-}
+
+}*/
 
 export default Players;

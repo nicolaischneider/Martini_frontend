@@ -1,43 +1,39 @@
 import React, { Component } from 'react';
-//import {player} from "./player";
+import axios from 'axios'
     
 class PlayerData extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            items: [],
+            items: {},
             isLoaded: false
         };
     }
 
     componentDidMount () {
 
-        fetch('http://127.0.0.1:8000/player/')
-            .then(res => res.json())
-            .then(result => {
-                this.setState({
-                    isLoaded: true,
-                    items: result,
-                }) 
+        axios.get('http://127.0.0.1:8000/player/')
+            .then(res => {
+                console.log(res)
+                this.setState({items: res.data.player, isLoaded: true})
             });
     }
 
     render() {
         
-        const { isLoaded, items} = this.state;
+        const { items, isLoaded } = this.state;
 
         if (!isLoaded){
             return <div>Loading...</div>
-        }
-
-        else{
-        
+        }else{
             return (
                 <div>
-                    {items.map((data, key) => {
+                    {
+                    items.length ?
+                    items.map(data => {
                         return (
-                            <div key={key} className="stats">
+                            <div className="stats">
                                 <p style={{fontWeight: "bold"}}>{ data.first_name + " " + data.last_name}</p>
                                 <p>{data.position}</p>
                                 <label className="trend">{data.market_val - data.market_val_purchased}</label>
@@ -46,10 +42,9 @@ class PlayerData extends Component {
                                 <p>{"Points: " + data.points}</p>
                             </div>
                         );
-                     })}
+                     }) : null
+                    }
                 </div>
-
-
             );
         }
     }

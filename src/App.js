@@ -8,11 +8,6 @@ import Finances from './components/pages/Finances';
 import SidebarContent from './components/SidebarContent';
 import './App.css';
 
-
-
-
-
-
 class App extends Component {
   
   
