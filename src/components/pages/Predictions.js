@@ -1,6 +1,7 @@
 import React from 'react';
-import {BuyData} from './../data/PredictionData';
-import {SellData} from './../data/PredictionData';
+import BuyData from './../data/BuyData';
+import SellData from './../data/SellData';
+
 
 function Predictions() {
     return (

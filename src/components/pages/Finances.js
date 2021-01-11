@@ -1,5 +1,5 @@
 import React from 'react';
-import {FinancesData} from './../data/FinancesData';
+import FinancesData from './../data/FinancesData';
 
 function Finances() {
     return (
