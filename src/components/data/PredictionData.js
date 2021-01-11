@@ -28,6 +28,7 @@ export const SellData = () => {
                         <p style={{fontWeight: "bold"}}>{data.first_name + " " + data.last_name}</p>
                         <button className="btnTrade">SELL</button>
                         <p>{"Price: " + data.price}</p> 
+                        <p>{"Possible Profit: " + (data.price - data.market_val_purchased)}</p>
                     </div>
                 );
             })}

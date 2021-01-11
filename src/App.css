@@ -38,10 +38,8 @@ a {
 }
 
 .containerPlayers {
-  margin: -12% 30%;
+  margin: -150px 30%;
   color: white;
-  overflow-y: scroll; 
-  max-height: 40rem;
   padding: 1%;
 }
 
@@ -77,30 +75,36 @@ a {
 
 .containerPredictionsBox {
   display: block;
-  padding: 2% 2%;
+  padding: 2%;
   border: 1px solid white;
   border-radius: 10px;
   color: #fff;
   margin-left: 1%;
-  margin-right: 82%;
+  margin-right: 83%;
   margin-top: -5%;
 }
 
 .sidebarBox {
-  display: flex;
+  display: inline-block;
   flex-wrap: wrap;
   padding: 1%;
   background: #111;
   color: white;
   border: 1px solid white;
   border-radius: 10px 10px;
-  margin-right: 82%;
+  margin-right: 83%;
   margin-top: 5%;
   margin-left: 1%;
   
 
 }
 
+.trend {
+  align-self: flex-end;
+  color: #fff;
+  padding: 1px;
+  float: right;
+}
 
 .logo {
   height: 50px;
@@ -135,9 +139,9 @@ a {
   background: #444;
   color: #fff;
   text-align: center;
-  box-sizing: 100%;
   cursor: pointer;
   float: right;
+ 
 }
 
 

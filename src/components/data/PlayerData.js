@@ -1,7 +1,64 @@
-import React from 'react';
-import {player} from "./player";
+import React, { Component } from 'react';
+//import {player} from "./player";
+    
+class PlayerData extends Component {
 
-export const PlayerData = () => {
+    constructor(props){
+        super(props);
+        this.state = {
+            items: [],
+            isLoaded: false
+        };
+    }
+
+    componentDidMount () {
+
+        fetch('http://127.0.0.1:8000/player/')
+            .then(res => res.json())
+            .then(result => {
+                this.setState({
+                    isLoaded: true,
+                    items: result,
+                }) 
+            });
+    }
+
+    render() {
+        
+        const { isLoaded, items} = this.state;
+
+        if (!isLoaded){
+            return <div>Loading...</div>
+        }
+
+        else{
+        
+            return (
+                <div>
+                    {items.map((data, key) => {
+                        return (
+                            <div key={key} className="stats">
+                                <p style={{fontWeight: "bold"}}>{ data.first_name + " " + data.last_name}</p>
+                                <p>{data.position}</p>
+                                <label className="trend">{data.market_val - data.market_val_purchased}</label>
+                                <label className="trend">{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"}</label>
+                                <p>{"Marketvalue: " + data.market_val}</p>
+                                <p>{"Points: " + data.points}</p>
+                            </div>
+                        );
+                     })}
+                </div>
+
+
+            );
+        }
+    }
+
+}
+
+export default PlayerData;
+
+/*export const PlayerData = () => {
     return (
         <div>
             {player.map((data, key) => {
@@ -9,6 +66,8 @@ export const PlayerData = () => {
                     <div key={key} className="stats">
                         <p style={{fontWeight: "bold"}}>{ data.first_name + " " + data.last_name}</p>
                         <p>{data.position}</p>
+                        <label className="trend">{data.market_val - data.market_val_purchased}</label>
+                        <label className="trend">{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"}</label>
                         <p>{"Marketvalue: " + data.market_val}</p>
                         <p>{"Points: " + data.points}</p>
                     </div>
@@ -19,4 +78,4 @@ export const PlayerData = () => {
     )
 
 
-}
+}*/

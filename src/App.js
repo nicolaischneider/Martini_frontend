@@ -18,10 +18,7 @@ class App extends Component {
   
   render() {
     return (
-   
-     
         <Router>
-         
           <div className="App">
             <div className="container">
               <Header />
@@ -31,8 +28,6 @@ class App extends Component {
             <Route exact path="/allplayers" component={Players}/>
             <Route path="/predictions" component={Predictions} />
             <Route path="/finances" component={Finances} />
-              
-            
           </div>
         </Router>    
     

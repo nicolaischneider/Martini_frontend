@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {PlayerData} from './../data/PlayerData';
+import PlayerData from './../data/PlayerData';
 
 function Players() {
         return(
