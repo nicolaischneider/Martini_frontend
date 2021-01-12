@@ -34,10 +34,10 @@ class PlayerData extends Component {
                     items.map(data => {
                         return (
                             <div className="stats">
-                                <p style={{fontWeight: "bold"}}>{ data.first_name + " " + data.last_name}</p>
+                                <b>{ data.first_name + " " + data.last_name}</b>
                                 <p>{data.position}</p>
-                                <label className="trend">{data.market_val - data.market_val_purchased}</label>
-                                <label className="trend">{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"}</label>
+                                <p className="trend">{data.market_val - data.market_val_purchased}</p><br />
+                                <p className="trend">{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"}</p><br />
                                 <p>{"Marketvalue: " + data.market_val}</p>
                                 <p>{"Points: " + data.points}</p>
                             </div>

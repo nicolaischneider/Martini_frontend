@@ -31,8 +31,15 @@ class UserData extends Component {
                 <div className="sidebarBox">
                     <p></p> 
                     <p style={{fontWeight: "bold", marginBottom: "10%"}}>{items.user_name}</p> 
-                    <p>budget <span> </span> {items.budget} EUR</p>
-                    <p>score <span> </span> {items.points}</p>
+                    <inline>
+                        <label style={{marginRight:'10px'}}>budget </label>
+                        <b style={{float: 'right'}}>  € {items.budget}  </b>
+                    </inline>
+                    <br/>
+                    <inline>
+                        <label>score </label>
+                        <b style={{float: 'right'}}> {items.points} </b>
+                    </inline>
 
                 </div>  
             );

@@ -62,7 +62,7 @@ a {
 
 .containerPredicionsPart {
   margin-top: 7%;
-  margin-left: 10%;
+  margin-left: 8%;
   flex: 1;
   padding: 5px;
 }
@@ -79,9 +79,9 @@ a {
   border: 1px solid white;
   border-radius: 10px;
   color: #fff;
-  margin-left: 1%;
-  margin-right: 83%;
-  margin-top: -5%;
+  margin-right: 1%;
+  margin-top: -8%;
+  float: right;
 }
 
 .sidebarBox {
@@ -100,9 +100,8 @@ a {
 }
 
 .trend {
-  align-self: flex-end;
   color: #fff;
-  padding: 1px;
+  padding: 5px;
   float: right;
 }
 
@@ -122,7 +121,7 @@ a {
   
 
 .btnP {
-  display: inline-block;
+  display: inline;
   border: black;
   background: #444;
   color: #fff;
@@ -141,6 +140,8 @@ a {
   text-align: center;
   cursor: pointer;
   float: right;
+  padding: 5px;
+  border-radius: 5px 5px;
  
 }
 

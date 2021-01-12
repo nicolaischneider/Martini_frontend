@@ -5,9 +5,12 @@ import SellData from './../data/SellData';
 
 function Predictions() {
     return (
-      <React.Fragment>
+      <div>
+      
+      
       
        <div className="containerPredictions"> 
+       
         <div className="containerPredicionsPart">
           <h2 style={{fontWeight: "bold", marginBottom: "10%", color: "red", textAlign: "center"}}> BUY </h2>
           <BuyData/>
@@ -16,10 +19,10 @@ function Predictions() {
         <div className="containerPredicionsPart">
           <h2 style={{fontWeight: "bold", marginBottom: "10%", color: "green", textAlign: "center"}}> SELL </h2>
           <SellData/>
-        </div> 
+        </div>   
       </div> 
 
-        <div className="containerPredictionsBox">
+      <div className="containerPredictionsBox">
           <button className="btnP">SIMPLE</button>
           <button className="btnP">ML</button>
         
@@ -43,7 +46,10 @@ function Predictions() {
           </p>
 
         </div>
-    </React.Fragment>
+      </div>
+
+        
+
 
     )
 }

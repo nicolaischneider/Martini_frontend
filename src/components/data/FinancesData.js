@@ -34,7 +34,9 @@ class FinancesData extends Component {
                     items.map(data => {
                         return (
                             <div className="stats">
-                                {data.traded_player_name + " " + data.transaction_type + " " + data.value }
+                                <label> {data.transaction_type} </label> | 
+                                <b> {data.traded_player_name} </b>
+                                <label style={{float: 'right'}}> € {data.value} </label>
                             </div>
                         );
                      }) : null
