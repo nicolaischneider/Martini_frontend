@@ -8,30 +8,21 @@ import Finances from './components/pages/Finances';
 import SidebarContent from './components/SidebarContent';
 import './App.css';
 
-
-
-
-
-
 class App extends Component {
   
   
   render() {
     return (
-   
-     
         <Router>
-         
           <div className="App">
             <div className="container">
               <Header />
             </div>
             <SidebarContent />
-            <Route exact path="/" component={Players}/>
+            <Route exact path="/" />
+            <Route exact path="/allplayers" component={Players}/>
             <Route path="/predictions" component={Predictions} />
             <Route path="/finances" component={Finances} />
-              
-            
           </div>
         </Router>    
     

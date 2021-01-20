@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 
-class FinancesData extends Component {
+class SellData extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            items: {},
+            items: {},    
             isLoaded: false
         };
     }
 
     componentDidMount () {
 
-        axios.get('http://127.0.0.1:8000/transactions/')
+        axios.get('http://127.0.0.1:8000/predict/')
             .then(res => {
                 console.log(res)
-                this.setState({items: res.data.transactions, isLoaded: true})
+                this.setState({items: res.data.Sell, isLoaded: true})
             });
     }
 
@@ -34,20 +34,19 @@ class FinancesData extends Component {
                     items.map(data => {
                         return (
                             <div className="stats">
-                                <label> {data.transaction_type} </label> | 
-                                <b> {data.traded_player_name} </b>
-                                <label style={{float: 'right'}}> € {data.value} </label>
+                                <p style={{fontWeight: "bold"}}>{data.first_name + " " + data.last_name}</p>
+                                <button className="btnTrade">SELL</button>
+                                <p>{"Price: " + data.price}</p> 
+                                <p>{"Possible Profit: " + (data.price - data.market_val_purchased)}</p>
                             </div>
                         );
                      }) : null
                     }
-                </div>
-                
+                </div> 
             );
         }
     }
 
 }
 
-export default FinancesData;
-
+export default SellData;

@@ -15,20 +15,45 @@ a {
   text-decoration: none;
 }
 
+.headerStyle  {
+  background: #222;
+  color: white;
+  padding: 1% 1%;
+ 
+}
+
+.linkStyle {
+  color: #999;
+  padding: 0,5%;
+  font-size: 70%;
+  margin-left: 3%;
+}
+
+.linkStyle:hover {
+  color: white;
+}
+
 .container {
-  padding: 0 0%;
+  padding: 0 0;
 }
 
 .containerPlayers {
-  margin: 8% 30%;
+  margin: -150px 30%;
   color: white;
-  overflow-y: scroll;
-  max-height: 10rem;
-  background: #222;
-  padding: 5px;
+  padding: 1%;
 }
+
+.stats {
+  border: 1px solid #fff;
+  border-radius: 8px 8px;
+  padding: 1%;
+  margin: 1%;
+
+}
+
 .containerPredictions {
-  padding: 0% 25%;
+  margin-top: -15%;
+  padding: 0% 15%;
   color: white;
   display: flex;
   flex-wrap: wrap;
@@ -36,40 +61,49 @@ a {
 }
 
 .containerPredicionsPart {
-  margin: 10% 10%;
+  margin-top: 7%;
+  margin-left: 8%;
   flex: 1;
-  overflow-y: scroll;
-  max-height: 3rem;
-  background: #222;
   padding: 5px;
-  
 }
 
 .containerFinances {
-  margin: 8% 30%;
   color: white;
-  overflow-y: scroll;
-  max-height: 3rem;
-  background: #222;
-  padding: 5px;
+  max-height: 40rem;
+  margin: -10% 25%;
 }
 
 .containerPredictionsBox {
-  padding: 2% 2%;
-  background: #222;
-  border: black;
+  display: block;
+  padding: 2%;
+  border: 1px solid white;
+  border-radius: 10px;
   color: #fff;
-  margin-left: 50%;
-  margin-right: 20%;
-  margin-bottom: 20%;
-  margin-top: 10%;
+  margin-right: 1%;
+  margin-top: -8%;
+  float: right;
 }
 
 .sidebarBox {
-  block-size: 1rem;
+  display: inline-block;
+  flex-wrap: wrap;
+  padding: 1%;
+  background: #111;
+  color: white;
+  border: 1px solid white;
+  border-radius: 10px 10px;
+  margin-right: 83%;
+  margin-top: 5%;
+  margin-left: 1%;
   
+
 }
 
+.trend {
+  color: #fff;
+  padding: 5px;
+  float: right;
+}
 
 .logo {
   height: 50px;
@@ -87,17 +121,35 @@ a {
   
 
 .btnP {
-  display: inline-block;
+  display: inline;
   border: black;
   background: #444;
   color: #fff;
   text-align: center;
   padding: 7px 20px;
   cursor: pointer;
-  margin: 0% 5%;
+  margin-right: 8%;
+  margin-bottom: 20%;
+}
+
+.btnTrade {
+  align-self: flex-end;
+  border: black;
+  background: #444;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  float: right;
+  padding: 5px;
+  border-radius: 5px 5px;
+ 
 }
 
 
-.btn:hover {
+.btnP:hover {
   background: #666;
+}
+
+.btnTrade:hover {
+  background:#666;
 }

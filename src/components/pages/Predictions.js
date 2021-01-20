@@ -1,49 +1,55 @@
 import React from 'react';
+import BuyData from './../data/BuyData';
+import SellData from './../data/SellData';
+
 
 function Predictions() {
     return (
-      <React.Fragment>
+      <div>
+      
+      
       
        <div className="containerPredictions"> 
+       
         <div className="containerPredicionsPart">
-           <ul class="list-group">
-            <li class="list-group-item list-group-item-primary">Buy 1</li>
-            <li class="list-group-item list-group-item-primary">Buy 2</li>
-            <li class="list-group-item list-group-item-primary">Buy 3</li>
-          </ul>
+          <h2 style={{fontWeight: "bold", marginBottom: "10%", color: "red", textAlign: "center"}}> BUY </h2>
+          <BuyData/>
         </div>
        
         <div className="containerPredicionsPart">
-          <ul class="list-group">
-            <li class="list-group-item list-group-item-primary">Sell 1</li>
-            <li class="list-group-item list-group-item-primary">Sell 2</li>
-            <li class="list-group-item list-group-item-primary">Sell 3</li>
-          </ul>
-        </div> 
+          <h2 style={{fontWeight: "bold", marginBottom: "10%", color: "green", textAlign: "center"}}> SELL </h2>
+          <SellData/>
+        </div>   
       </div> 
 
-        <div className="containerPredictionsBox">
+      <div className="containerPredictionsBox">
           <button className="btnP">SIMPLE</button>
           <button className="btnP">ML</button>
-          <br/>
-          <br/>
-          <label> 
-            <input name="considerAge" type="checkbox"/>
-            consider age
-          </label>
-          <br/>
-          <label> 
-            <input name="considerAge" type="checkbox"/>
-            consider x
-          </label>  
-          <br/>
-          <label> 
-            <input name="considerAge" type="checkbox" />
-            consider y
-          </label>
+        
+          <p>
+            <label> 
+              <input name="considerAge" type="checkbox"/>
+              consider age
+            </label>
+          </p>
+          <p>
+            <label> 
+              <input name="considerAge" type="checkbox"/>
+              consider x
+            </label>  
+          </p>
+          <p>
+            <label> 
+              <input name="considerAge" type="checkbox" />
+              consider y
+            </label>
+          </p>
 
         </div>
-    </React.Fragment>
+      </div>
+
+        
+
 
     )
 }
