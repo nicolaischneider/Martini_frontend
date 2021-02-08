@@ -13,7 +13,8 @@ class SellData extends Component {
 
     componentDidMount () {
 
-        axios.get('http://127.0.0.1:8000/predict/')
+        //axios.get('http://46.101.237.138/predict/')
+        axios.get('http://127.0.0.1:8000/predict')
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.Sell, isLoaded: true})
@@ -33,11 +34,11 @@ class SellData extends Component {
                     items.length ?
                     items.map(data => {
                         return (
-                            <div className="stats">
-                                <p style={{fontWeight: "bold"}}>{data.first_name + " " + data.last_name}</p>
-                                <button className="btnTrade">SELL</button>
-                                <p>{"Price: " + data.price}</p> 
-                                <p>{"Possible Profit: " + (data.price - data.market_val_purchased)}</p>
+                            <div class="shadow m-2 p-1 bg-dark rounded-lg">
+                                <button className= "btn btn-primary btn-block">SELL</button>
+                                <p>{data.first_name + " " + data.last_name}</p>
+                                <p>{"price " + data.price}</p>   
+                                <p>{"possible profit " + (data.price - data.market_val_purchased)}</p>   
                             </div>
                         );
                      }) : null

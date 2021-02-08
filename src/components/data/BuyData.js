@@ -13,7 +13,8 @@ class BuyData extends Component {
 
     componentDidMount () {
 
-        axios.get('http://127.0.0.1:8000/predict/')
+        //axios.get('http://46.101.237.138/predict/')
+        axios.get('http://127.0.0.1:8000/predict')
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.Buy, isLoaded: true})
@@ -33,10 +34,11 @@ class BuyData extends Component {
                     items.length ?    
                     items.map(data => {
                         return (
-                            <div className="stats">
-                            <p style={{fontWeight: "bold"}}>{data.first_name + " " + data.last_name}</p>
-                            <button className="btnTrade">BUY</button>
-                            <p>{"Price: " + data.price}</p>   
+                            <div class="shadow m-2 p-1 bg-dark rounded-lg">
+                                <p><button class="btn btn-success p-1 m-1 float-right">BUY</button></p>
+                                <p><b>{data.first_name + " " + data.last_name}</b></p>
+                                <p>{"price " + data.price}</p>   
+                                
                             </div>
                         );
                      }) : null

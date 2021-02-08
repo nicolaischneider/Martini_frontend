@@ -1,32 +1,62 @@
 
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
-import Header from './components/layout/Header';
-import Players from './components/pages/Players';
+import React, { Component, /*useState*/ } from 'react';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import Login from './components/pages/Login';
+import Navigation from './components/pages/Navigation';
+import PlayerData from './components/data/PlayerData';
 import Predictions from './components/pages/Predictions';
-import Finances from './components/pages/Finances';
-import SidebarContent from './components/SidebarContent';
+import Transactions from './components/pages/Transactions';
+import UserData from './components/data/UserData';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
+
+  state ={ 
+    loggedin: false
+  }
   
-  
+  /*componentDidMount = () => {
+    axios.get('http://46.101.237.138/login/')
+        /*.then (
+         this.setState({
+                loggedin: true
+            
+          })
+        );       
+      
+  }*/
+
   render() {
-    return (
-        <Router>
-          <div className="App">
-            <div className="container">
-              <Header />
-            </div>
-            <SidebarContent />
-            <Route exact path="/" />
-            <Route exact path="/allplayers" component={Players}/>
-            <Route path="/predictions" component={Predictions} />
-            <Route path="/finances" component={Finances} />
-          </div>
-        </Router>    
-    
-    );
+      if (this.state.loggedin === false)
+        return (
+          <Login/>
+        )
+      else
+        return (
+            <BrowserRouter>
+              <div className="App">
+                <div>
+                  <Navigation loggedin={this.state.loggedin}/>
+                </div>
+                <div class="row" style={{margin:'100px 30px'}}>
+                  <div class="col-sm-3">
+                    <UserData/>
+                  </div>
+                  <div class="col-sm-8">
+                    <Switch>
+                    <Route exact path="/"/>
+                    <Route exact path="/allplayers" component={PlayerData}/>
+                    <Route path="/predictions" component={Predictions} />
+                    <Route path="/finances" component={Transactions} />
+                    </Switch>
+                  </div>
+                </div>
+              </div>
+            </BrowserRouter>    
+        
+        );
   }
 }
 

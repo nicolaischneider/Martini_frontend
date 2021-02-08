@@ -13,7 +13,8 @@ class FinancesData extends Component {
 
     componentDidMount () {
 
-        axios.get('http://127.0.0.1:8000/transactions/')
+        //axios.get('http://46.101.237.138/transactions/')
+        axios.get('http://127.0.0.1:8000/transactions')
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.transactions, isLoaded: true})
@@ -28,20 +29,19 @@ class FinancesData extends Component {
             return <div>Loading...</div>
         }else{
             return (
-                <div>
+                <ul class="text-white">
                     {
                     items.length ?
                     items.map(data => {
                         return (
-                            <div className="stats">
-                                <label> {data.transaction_type} </label> | 
-                                <b> {data.traded_player_name} </b>
-                                <label style={{float: 'right'}}> € {data.value} </label>
+                            <div class="shadow m-2 p-1 bg-dark rounded-lg">
+                                <p><span class="badge badge-light p-1 m-1 float-right"> {data.transaction_type} </span> </p> 
+                                <p><b> {data.traded_player_name} </b> <l class="float-right pr-2">€ {data.value}</l></p>
                             </div>
                         );
                      }) : null
                     }
-                </div>
+                </ul>
                 
             );
         }

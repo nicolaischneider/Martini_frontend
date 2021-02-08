@@ -3,12 +3,16 @@ import PropTypes from 'prop-types';
 import PlayerData from './../data/PlayerData';
 
 function Players() {
-        return(
+  
+    
+    return(
+           <form>
+               <h3>Team</h3>
            
-            <div className="containerPlayers">
-                <PlayerData/>
-            </div>
-        
+                <div className="containerPlayers">
+                    <PlayerData/>
+                </div>
+            </form>
         )
         ;
     } 
