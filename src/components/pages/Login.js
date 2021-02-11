@@ -19,12 +19,12 @@ class Login extends React.Component {
         
         const data = {
             email: this.state.email,
-            password: this.state.password
+            pw: this.state.password
         }
         console.log(data)
 
         //axios.post ('http://46.101.237.138/login/', data)
-        axios.post('http://127.0.0.1:8000/login', data)
+        axios.post('http://127.0.0.1:8000/login/', data)
             .then( res => {
                 console.log(res)
                 localStorage.setItem('token', res.data.token)
