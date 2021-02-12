@@ -7,7 +7,7 @@ export default class Navigation extends Component {
     
     handleChange = (e) => {
         //axios.get ('http://46.101.237.138/logout/')
-        axios.get('http://127.0.0.1:8000/logout')
+        axios.get('http://127.0.0.1:8000/logout/')
         //this.props.setState({loggedin: false})
 
             
@@ -30,7 +30,7 @@ export default class Navigation extends Component {
         }
 
         return (
-            <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+            <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top shadow-lg">
                 <Link className="navbar-brand" to="/" ><img src={logo} alt="Logo" className="logo" />Martini</Link> 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>

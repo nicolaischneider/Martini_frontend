@@ -10,58 +10,58 @@ class PlayerData extends Component {
         this.state = {
             items: {},
             isLoaded: false,
-            trend: 0
         };
     }
 
     componentDidMount () {
 
         //axios.get('http://46.101.237.138/player/')
-        axios.get('http://127.0.0.1:8000/player')
+        axios.get('http://127.0.0.1:8000/player/')
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.player, isLoaded: true})
             });
     }
 
-    getTrend () {
-        if ((this.state.market_val - this.state.market_val_purchased) > 0 ){
-            this.setState({trend: (<img src={up} alt="Up" className="trend" />)})
-        }
-        else {
-            this.setState({trend: (<img src={down} alt="Down" className="trend" />)})
-        }
-    }
 
     render() {
         
         const { items, isLoaded } = this.state;
 
+        let trend;
+        let plus;
 
         if (!isLoaded){
             return <div>Loading...</div>
         }else{
             return (
-                <div class="text-white shadow-light">
+                <div class="text-white" >
                     <h3 class="text-center">Team</h3>
                     {
                     items.length ?
                     items.map(data => { 
-                        this.getTrend()
+                        if ((data.market_val - data.market_val_purchased) > 0 ){
+                            trend = (<img src={up} alt="Up" className="trend mt-3" />)
+                            plus = ("+")
+                         }
+                         else {
+                            trend = (<img src={down} alt="Down" className="trend mt-3" />)
+                            plus = ("")
+                         }
                         return (
-                            <ul class="media bg-dark m-3 p-3 rounded-lg"> 
-                                <img></img>  
+                            <ul class="media bg-dark m-3 p-3 rounded-lg shadow-lg"> 
+                                <img src={data.img_path} alt="Player" className="trend w-25" /> 
                                 <div class="media-body">
                                     <b>{data.first_name + " " + data.last_name}</b>
-                                    <p>{data.position}</p>
+                                    <p><span class="badge badge-light p-1"> {data.position} </span> </p>
                                     <p>{"marketvalue   € " + data.market_val}</p>
-                                    <p>{"points " + data.points}</p>
+                                    <l>{"points " + data.points}</l>
                                 </div>
-                                <div class="media-body float-right">
-                                    <p>{this.trend}</p>
-                                    <f>marketvalue trend</f>
-                                    <p>{data.market_val - data.market_val_purchased}</p>
-                                    <p>{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"}</p>
+                                <div class="media-body p-3 float-right rounded-lg shadow-lg">
+                                    <p>{trend}</p>
+                                    <p><span class="badge border p-1"> marketvalue trend </span></p>
+                                    <p class="m-2">{plus}{data.market_val - data.market_val_purchased}</p>
+                                    <l class="m-2">{plus}{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"}</l>
                                 </div>
                             </ul>
                         );

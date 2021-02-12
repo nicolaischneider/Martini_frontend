@@ -14,7 +14,7 @@ class SellData extends Component {
     componentDidMount () {
 
         //axios.get('http://46.101.237.138/predict/')
-        axios.get('http://127.0.0.1:8000/predict')
+        axios.get('http://127.0.0.1:8000/predict/')
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.Sell, isLoaded: true})

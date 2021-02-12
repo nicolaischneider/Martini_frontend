@@ -14,7 +14,7 @@ class FinancesData extends Component {
     componentDidMount () {
 
         //axios.get('http://46.101.237.138/transactions/')
-        axios.get('http://127.0.0.1:8000/transactions')
+        axios.get('http://127.0.0.1:8000/transactions/')
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.transactions, isLoaded: true})
