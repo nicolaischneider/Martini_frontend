@@ -14,22 +14,27 @@ import axios from 'axios';
 class App extends Component {
 
   state ={ 
+    //items: {}
     loggedin: true
+
   }
   
-  /*componentDidMount = () => {
+  componentDidMount = () => {
     axios.get('http://46.101.237.138/login/')
-        /*.then (
-         this.setState({
-                loggedin: true
+        /*.then ( res => {
+          this.setState({items: res})
+        
             
-          })
-        );       
-      
-  }*/
+          });*/
+        
+  }
 
   render() {
-      if (this.state.loggedin === false)
+      
+    /*const { items } = this.state;
+    console.log ({items})*/
+
+      if ( this.state.loggedin=== false)
         return (
           <Login/>
         )

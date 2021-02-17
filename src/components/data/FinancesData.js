@@ -35,8 +35,8 @@ class FinancesData extends Component {
                     items.map(data => {
                         return (
                             <div class="shadow m-2 p-1 bg-dark rounded-lg">
-                                <p><span class="badge badge-light p-1 m-1 float-right"> {data.transaction_type} </span> </p> 
-                                <p><b> {data.traded_player_name} </b> <l class="float-right pr-2">€ {data.value}</l></p>
+                                <p class="badge badge-light p-1 m-1 float-right">{data.transaction_type} </p> 
+                                <p class="pl-1 pt-3"><b> {data.traded_player_name} </b> <span class="float-right pr-2">€ {data.value}</span> </p>
                             </div>
                         );
                      }) : null

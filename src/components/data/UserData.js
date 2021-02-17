@@ -29,7 +29,7 @@ class UserData extends Component {
             return <div>Loading...</div>
         }else{
             return (
-                <div className="col p-3 text-white bg-dark rounded-lg shadow-lg">
+                <div className="col-sm p-3 text-white bg-dark rounded-lg shadow-lg">
                     <p><b>{items.user_name}</b></p>
                     <p>budget <b class="float-right">  € {items.budget}  </b></p>
                     <p>score <b class="float-right"> {items.points} </b></p>  

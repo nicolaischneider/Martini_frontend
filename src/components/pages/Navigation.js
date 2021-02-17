@@ -8,7 +8,6 @@ export default class Navigation extends Component {
     handleChange = (e) => {
         //axios.get ('http://46.101.237.138/logout/')
         axios.get('http://127.0.0.1:8000/logout/')
-        //this.props.setState({loggedin: false})
 
             
     }

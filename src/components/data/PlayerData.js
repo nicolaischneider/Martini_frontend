@@ -44,6 +44,10 @@ class PlayerData extends Component {
                             trend = (<img src={up} alt="Up" className="trend mt-3" />)
                             plus = ("+")
                          }
+                         else if ((data.market_val - data.market_val_purchased) === 0){
+                            trend = ("")
+                            plus = ("")
+                         }
                          else {
                             trend = (<img src={down} alt="Down" className="trend mt-3" />)
                             plus = ("")
@@ -54,8 +58,8 @@ class PlayerData extends Component {
                                 <div class="media-body">
                                     <b>{data.first_name + " " + data.last_name}</b>
                                     <p><span class="badge badge-light p-1"> {data.position} </span> </p>
-                                    <p>{"marketvalue   € " + data.market_val}</p>
-                                    <l>{"points " + data.points}</l>
+                                    <p>marketvalue <span class="float-right pr-3">{ "€ " + data.market_val}</span> </p>
+                                    <l>points <span class="float-right pr-3">{data.points}</span></l>
                                 </div>
                                 <div class="media-body p-3 float-right rounded-lg shadow-lg">
                                     <p>{trend}</p>
