@@ -1,4 +1,5 @@
 import React from 'react';
+import NumberFormat from 'react-number-format';
 import axios from 'axios';
 import Predictionsload from './Predictionsload';
 
@@ -51,6 +52,10 @@ class Predictions extends React.Component {
         }
       }
       console.log(data)
+      this.setState({
+        isLoadedSell: false,
+        isLoadedBuy: false
+      })
 
       //axios.post ('http://46.101.237.138/predict/', data)
       axios.post('http://127.0.0.1:8000/predict/', data)
@@ -119,9 +124,8 @@ class Predictions extends React.Component {
     }else{
     return (
       <form onSubmit={this.handleSubmit}>
-        <p class="text-white">{this.state.result}</p>
         <ul class="row" >
-          <div class="col p-2 m-3 text-white  bg-dark rounded-lg">
+          <div class="col-sm-4 p-2 ml-2 mb-2 text-white rounded-lg" style={{background: '#333'}}>
             <h2 class="text-success text-center">BUY</h2>
             <div>
               
@@ -143,13 +147,13 @@ class Predictions extends React.Component {
                         recBuy = ("")
                       }
                         return (
-                            <div class="shadow m-2 p-2 bg-dark rounded-lg" key={data.player_id}>
+                            <div class="shadow m-2 p-2 rounded-lg" key={data.player_id} style={{background: '#444'}}>
                                 <div class="float-right">{recBuy}</div>
                                 <p><b>{data.first_name + " " + data.last_name}</b></p>
-                                <p>price 
+                                <p>Price 
                                   <button className="btn btn-success float-right m-1" type="submit" name="BUY" 
                                     onClick={() => this.handleTrade("BUY", (data.player_id +"a"), data.price)}>BUY</button>
-                                  <p>€ {data.price}</p>
+                                  <p><NumberFormat value={data.price} displayType={'text'} thousandSeparator={true} prefix="€ "/></p>
                                 </p>  
                                 
                             </div>
@@ -158,7 +162,7 @@ class Predictions extends React.Component {
                     }
                 </div>
           </div>
-          <div class="col p-2 m-3 text-white  bg-dark rounded-lg">
+          <div class="col-sm-4 p-2 ml-2 mb-2 text-white rounded-lg" style={{background: '#333'}}>
             <h2 class="text-danger text-center">SELL</h2>
             <div>
               
@@ -183,13 +187,13 @@ class Predictions extends React.Component {
                         recSell = ("")
                       }
                         return (
-                            <div class="shadow m-2 p-2 bg-dark rounded-lg" key={data.player_id}>
+                            <div class="shadow m-2 p-2 rounded-lg" key={data.player_id} style={{background: '#444'}}>
                                 <div class="float-right">{recSell}</div>
                                 <p><b>{data.first_name + " " + data.last_name}</b></p> 
-                                <p>possible profit
+                                <p>Possible profit
                                   <button className= "btn btnO btn-danger m-1 float-right" type="submit" name="SELL" 
                                     onClick={() => this.handleTrade("SELL", (data.player_id), 0)}>SELL</button>
-                                  <p>€ {data.profit}</p>  
+                                  <p><NumberFormat value={data.profit} displayType={'text'} thousandSeparator={true} prefix="€ "/></p>  
                                 </p>
                                 
                             </div>
@@ -198,8 +202,8 @@ class Predictions extends React.Component {
                     }
                 </div> 
           </div>
-          <li>
-            <div class="col bg-dark rounded-lg shadow-lg float-right ml-4 text-white" onSubmit={this.handleSubmit}>
+        
+            <div class="col-sm rounded-lg shadow-lg float-right ml-4 text-white" onSubmit={this.handleSubmit} style={{background: '#333'}}>
               <p class="form-check-inline float-right mt-1">
                 <input type="checkbox" class="form-check-input" defaultChecked={this.state.default} name="default" onChange={this.handleDefault}/>
                 <label for="complex" class="form-check-label">Default</label>
@@ -208,11 +212,11 @@ class Predictions extends React.Component {
                 <button type="button" name="LOGIC_BUY"  class="btn btn-success" disabled={this.state.default} defaultChecked={this.state.type} onClick={() => this.handleButton("LOGIC_BUY")} >LOGIC</button>
                 <button type="button" name="ML"  class="btn btn-success" disabled={this.state.default} onClick={() => this.handleButton("ML")}>ML</button>
               </p>
-              <div class="bg-dark shadow-lg rounded-lg m-1 p-2">
+              <div class="shadow-lg rounded-lg m-1 p-2" style={{background: '#333'}}>
                 <span class="badge border text-success mb-1">BUY prediction</span>
                 <p class="form-group">
                   <label for="days">Considered days</label>
-                  <select type="number" name="considered_days" class="form-control-sm m-1 float-right" id="days" disabled={this.state.default} onChange={this.handleChange}>             
+                  <select type="number" name="considered_days" class="form-control-sm m-1 float-right" defaultValue="3" id="days" disabled={this.state.default} onChange={this.handleChange}>             
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>
@@ -224,43 +228,60 @@ class Predictions extends React.Component {
                   <label for="complex" class="m-1 form-check-label">Complex evaluation</label>
                 </p>
               </div>
-              <div class="bg-dark shadow-lg rounded-lg m-1 p-2">
+              <div class="shadow-lg rounded-lg m-1 p-2" style={{background: '#333'}}>
                 <span class="badge border text-danger mb-1">SELL prediction</span>
                 <p class="form-group"><label for="profit">Min profit (%)</label>
-                  <input type="number" id="profit" class="form-control-sm w-25 m-1 float-right" name="min_profit" placeholder="15" disabled={this.state.default} onChange={this.handleChange}/>
+                  <input type="number" min={1} id="profit" class="form-control-sm w-25 m-1 float-right" name="min_profit" placeholder="15" disabled={this.state.default} onChange={this.handleChange}/>
                 </p>
               </div>
               <p>
                 <button className= "btn btnO btn-block mt-2" style={{background: 'grey', border: 'grey'}} type="submit" disabled={this.state.default} onSubmit={this.handleSubmit}>Send</button>
               </p>
             </div>  
-            <div class="border rounded-lg text-white mt-5 p-2">
-              <ul>
+            <div class="float-right rounded-lg w-50 text-white mt-5 p-2" style={{background: '#333'}}>
+            <label>The following badges are supposed to help you with your buy and sell decision by indicating the forecasted market value trend.</label>
+            <div class="m-2 p-1 rounded-lg shadow-lg" style={{background: '#444'}}>
+              <ul class="media">
                 <span class="badge badge-light p-1 mr-1">GOOD</span>
-                <label>This is...</label>
+                <div class="media-body">
+                  <label>Slight increase of marketvalue expected.</label>
+                </div>
               </ul>
-              <ul>
+              <ul class="media">
                 <span class="badge badge-success p-1 mr-1">HIGH</span>
-                <label>This is...</label>
+                <div class="media-body">
+                  <label>Decent increase of marketvalue expected.</label>
+                </div>
               </ul>
-              <ul>
+              <ul class="media">
                 <span class="badge badge-success p-1 mr-1">VERY HIGH</span>
-                <label>This is...</label>
+                <div class="media-body">
+                  <label>Must buy!</label>
+                </div>
               </ul>
-              <ul class="mt-1">
+              </div> 
+              <div class="m-2 p-1 rounded-lg shadow-lg" style={{background: '#444'}}>
+              <ul class="media mt-1">
                 <span class="badge badge-success p-1 mr-1">HOLD</span>
-                <label>This is...</label>
+                <div class="media-body">
+                  <label>Marketvalue expected to increase. Consider holding player a while longer.</label>
+                </div>
               </ul>
-              <ul>
+              <ul class="media"> 
                 <span class="badge badge-light p-1 mr-1">SELL</span>
-                <label>This is...</label>
+                <div class="media-body">
+                  <label>No major marketvalue change expected. Your decision!</label>
+                </div>
               </ul>
-              <ul>
+              <ul class="media">
                 <span class="badge badge-danger p-1 mr-1">SELL</span>
-                <label>This is...</label>
+                <div class="media-body">
+                  <label>Decrease of marketvalue expected. Must sell!</label>
+                </div>
               </ul>
+              </div>
             </div>
-          </li>
+         
         </ul>
       </form> 
       
@@ -276,5 +297,6 @@ class Predictions extends React.Component {
     )
   }
 }}
+
 
 export default Predictions;

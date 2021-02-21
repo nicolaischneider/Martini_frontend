@@ -2,6 +2,7 @@
 import React, { Component, /*useState*/ } from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Login from './components/pages/Login';
+import Home from './components/pages/Home';
 import Navigation from './components/pages/Navigation';
 import PlayerData from './components/data/PlayerData';
 import Predictions from './components/pages/Predictions';
@@ -12,38 +13,39 @@ import './App.css';
 import axios from 'axios';
 
 class App extends Component {
+  state = {
+    
+    
+  }
 
-  state ={ 
-    //items: {}
-    loggedin: true
+  componentDidMount = () => {
+    axios.get('http://127.0.0.1:8000/userstats/')
+      .then(res => {
+        console.log(res)
+        this.setUser (res.data.user_name)
+        
+    });
+  }
 
+  setUser = (user) => {
+    this.setState ({
+      user: user 
+  })
+  }
+
+  setLogged = (status) => {
+    this.setState ({
+      loggedIn: status 
+  })
   }
   
-  componentDidMount = () => {
-    axios.get('http://46.101.237.138/login/')
-        /*.then ( res => {
-          this.setState({items: res})
-        
-            
-          });*/
-        
-  }
-
   render() {
-      
-    /*const { items } = this.state;
-    console.log ({items})*/
-
-      if ( this.state.loggedin=== false)
-        return (
-          <Login/>
-        )
-      else
+  
         return (
             <BrowserRouter>
               <div className="App">
                 <div>
-                  <Navigation loggedin={this.state.loggedin}/>
+                  <Navigation user={this.state.user} setUser={this.setUser}/>
                 </div>
                 <div class="row" style={{margin:'100px 30px'}}>
                   <div class="col-sm-3">
@@ -51,7 +53,8 @@ class App extends Component {
                   </div>
                   <div class="col-sm-8">
                     <Switch>
-                    <Route exact path="/"/>
+                    <Route exact path="/" component={() => <Home user={this.state.user} />}/>
+                    <Route exact path="/login" component={() => <Login setUser={this.setUser} setLogged={this.setLogged}/>}/> 
                     <Route exact path="/allplayers" component={PlayerData}/>
                     <Route path="/predictions" component={Predictions} />
                     <Route path="/finances" component={Transactions} />

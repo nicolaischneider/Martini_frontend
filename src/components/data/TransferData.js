@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NumberFormat from 'react-number-format';
 import axios from 'axios';
 
 class TransferData extends Component {
@@ -8,7 +9,7 @@ class TransferData extends Component {
         this.state = {
             items: {},
             isLoaded: false,
-            sold: ""
+           
         };
     }
 
@@ -51,16 +52,15 @@ class TransferData extends Component {
         let acceptoffer;
 
         if (!isLoaded){
-            return <div>Loading...</div>
+            return <div class="spinner-border text-success"/>
         }else{
             return (
                 <ul class="text-white">
-                    <p class="text-center">{this.state.sold}</p>
                     {
                     items.length ?
                     items.map(data => {
                         if (data.offer_price){
-                            offerbadge = (<span class="badge badge-success p-1 m-1 float-right">Offer in</span>)
+                            offerbadge = (<span class="badge badge-light p-1 m-1 float-right">Offer in</span>)
                             offer = ("€ " + data.offer_price)
                             acceptoffer = (<button type="submit" class="btn-sm btn rounded-lg p-1 m-1" onClick={() => this.acceptOffer((data.offer_id +"a"), data.player_id)}>accept offer</button>)
                         }
@@ -70,9 +70,9 @@ class TransferData extends Component {
                             acceptoffer = (null)
                         }
                         return (
-                            <div class="shadow m-2 p-1 bg-dark rounded-lg" key={data.player_id}>
+                            <div class="shadow m-2 p-1 rounded-lg" key={data.player_id} style={{background: '#444'}}>
                                 {offerbadge} 
-                                <p class="pl-1 pt-3"><b> {data.last_name} </b> <span class="text-success float-right pr-2"> {offer}</span> </p>
+                                <p class="pl-1 pt-3"><b> {data.last_name} </b> <span class="text-success float-right pr-2"> <NumberFormat value={offer} displayType={'text'} thousandSeparator={true} prefix="€ "/></span> </p>
                                 {acceptoffer}
                                 
                             </div>

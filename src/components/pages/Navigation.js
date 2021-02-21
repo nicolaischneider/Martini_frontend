@@ -5,21 +5,24 @@ import axios from 'axios';
 
 export default class Navigation extends Component {
     
-    handleChange = (e) => {
+    handleLogout = (e) => {
         //axios.get ('http://46.101.237.138/logout/')
         axios.get('http://127.0.0.1:8000/logout/')
+        localStorage.clear()
+        this.props.setUser(null)
 
             
     }
+
 
     render () {
         
         let logoutButton;
 
-        if (this.props.loggedin === true){
+        if (this.props.user){
             logoutButton = (
             <div className="form-group" >
-                <Link className="btn btnO btn-primary" to="/" onClick= {this.handleChange}>Log out</Link>
+                <Link className="btn btnO btn-primary" to="/login" onClick= {this.handleLogout}>Log out</Link>
             </div> 
             )
         }else{
@@ -29,7 +32,7 @@ export default class Navigation extends Component {
         }
 
         return (
-            <nav className="navbar navbar-expand-sm bg-dark navbar-dark fixed-top shadow-lg">
+            <nav className="navbar navbar-expand-sm navbar-dark fixed-top shadow-lg" style={{background: '#333'}}>
                 <Link className="navbar-brand" to="/" ><img src={logo} alt="Logo" className="logo" />Martini</Link> 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
@@ -37,13 +40,13 @@ export default class Navigation extends Component {
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                        <Link className="nav-link" to="/allplayers" activeStyle={{color: 'green'}}> All Players </Link>  
+                        <Link className="nav-link" to="/allplayers" activeStyle={{color: 'green'}}> Team </Link>  
                         </li>
                         <li className="nav-item">
-                        <Link className="nav-link" to="/predictions" activeStyle={{color: 'green'}}> Predictions </Link>  
+                        <Link className="nav-link" to="/predictions" activeStyle={{color: 'green'}}> Recommendations </Link>  
                         </li>
                         <li className="nav-item">
-                        <Link className="nav-link" to="/finances" activeStyle={{color: 'green'}}> Finances </Link> 
+                        <Link className="nav-link" to="/finances" activeStyle={{color: 'green'}}> Transactions </Link> 
                         </li>
                         
                     </ul>

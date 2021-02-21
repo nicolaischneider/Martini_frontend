@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NumberFormat from 'react-number-format';
 import axios from 'axios';
 import up from '../layout/up.png';
 import down from '../layout/down.png';
@@ -30,9 +31,12 @@ class PlayerData extends Component {
 
         let trend;
         let plus;
+        let procent;
+        let position
+
 
         if (!isLoaded){
-            return <div>Loading...</div>
+            return <div class="spinner-border text-success"/>
         }else{
             return (
                 <div class="text-white" >
@@ -41,31 +45,38 @@ class PlayerData extends Component {
                     items.length ?
                     items.map(data => { 
                         if ((data.market_val - data.market_val_purchased) > 0 ){
-                            trend = (<img src={up} alt="Up" className="trend mt-3" />)
+                            trend = (<img src={up} alt="Up" className="trend mt-3 " style={{width: '60px', height: '60px'}} />)
                             plus = ("+")
+                            procent = (<span class="m-2 text-success">({plus}{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"})</span>)
                          }
                          else if ((data.market_val - data.market_val_purchased) === 0){
                             trend = ("")
                             plus = ("")
+                            procent = (<span class="m-2 ">({plus}{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"})</span>)
                          }
                          else {
-                            trend = (<img src={down} alt="Down" className="trend mt-3" />)
+                            trend = (<img src={down} alt="Down" className="trend mt-3" style={{width: '60px', height: '60px'}}/>)
                             plus = ("")
+                            procent = (<span class="m-2 text-danger">({plus}{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"})</span>)
                          }
+                         position = data.position
+                         position = position.replace("_", " ")
+                        
                         return (
-                            <ul class="media bg-dark m-3 p-3 rounded-lg shadow-lg"> 
+                            <ul class="media m-3 p-3 rounded-lg shadow-lg" style={{background: '#333'}}> 
                                 <img src={data.img_path} alt="Player" className="trend w-25" /> 
                                 <div class="media-body">
                                     <b>{data.first_name + " " + data.last_name}</b>
-                                    <p><span class="badge badge-light p-1"> {data.position} </span> </p>
-                                    <p>marketvalue <span class="float-right pr-3">{ "€ " + data.market_val}</span> </p>
-                                    <l>points <span class="float-right pr-3">{data.points}</span></l>
+                                    <p><span class="badge badge-light p-1" > {position} </span> </p>
+                                    <p>Marketvalue <span class="float-right pr-3"><NumberFormat value={data.market_val} displayType={'text'} thousandSeparator={true} prefix="€ "/></span> </p>
+                                    <l>Points <span class="float-right pr-3">{data.points}</span></l>
                                 </div>
-                                <div class="media-body p-3 float-right rounded-lg shadow-lg">
+                                <div class="media-body p-3 float-right rounded-lg shadow-lg" style={{background: '#444'}}>
+                                    <p><span class="badge border p-1"> Marketvalue trend since purchased</span></p>
                                     <p>{trend}</p>
-                                    <p><span class="badge border p-1"> marketvalue trend </span></p>
-                                    <p class="m-2">{plus}{data.market_val - data.market_val_purchased}</p>
-                                    <l class="m-2">{plus}{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"}</l>
+                                    <p class="m-2">{plus}<NumberFormat value={data.market_val- data.market_val_purchased} displayType={'text'} thousandSeparator={true} prefix="€ "/>
+                                        {procent}
+                                    </p>
                                 </div>
                             </ul>
                         );
@@ -75,29 +86,9 @@ class PlayerData extends Component {
             );
         }
     }
-
 }
+
+
 
 export default PlayerData;
 
-/*export const PlayerData = () => {
-    return (
-        <div>
-            {player.map((data, key) => {
-                return (
-                    <div key={key} className="stats">
-                        <p style={{fontWeight: "bold"}}>{ data.first_name + " " + data.last_name}</p>
-                        <p>{data.position}</p>
-                        <label className="trend">{data.market_val - data.market_val_purchased}</label>
-                        <label className="trend">{Math.trunc(((data.market_val - data.market_val_purchased)/data.market_val_purchased)*100) + "%"}</label>
-                        <p>{"Marketvalue: " + data.market_val}</p>
-                        <p>{"Points: " + data.points}</p>
-                    </div>
-                );
-            })}
-        </div>
-
-    )
-
-
-}*/

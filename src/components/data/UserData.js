@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NumberFormat from 'react-number-format';
 import axios from 'axios';
 
 class UserData extends Component {
@@ -26,14 +27,17 @@ class UserData extends Component {
         const { items, isLoaded } = this.state;
 
         if (!isLoaded){
-            return <div>Loading...</div>
+            return <div class="spinner-border text-success"/>
         }else{
             return (
-                <div className="col-sm p-3 text-white bg-dark rounded-lg shadow-lg">
-                    <p><b>{items.user_name}</b></p>
-                    <p>budget <b class="float-right">  € {items.budget}  </b></p>
-                    <p>score <b class="float-right"> {items.points} </b></p>  
-                </div>  
+                
+                    <div className="col-sm p-3 text-white rounded-lg shadow-lg" style={{background: '#333'}}>
+                        <p><b>{items.user_name}</b></p>
+                        <p>Budget <b class="float-right"><NumberFormat value={items.budget} displayType={'text'} thousandSeparator={true} prefix="€ "/> </b></p>
+                        <p>Score <b class="float-right"> {items.points} </b></p>  
+                    </div> 
+                
+               
             );
         }
     }
