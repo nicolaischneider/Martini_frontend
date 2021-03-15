@@ -38,8 +38,9 @@ class Predictions extends React.Component {
 
   handleSubmit = async(e) => {
     e.preventDefault()
-
-      const data = { 
+      let userdata = JSON.parse(localStorage.getItem('user'))
+      const data = {
+        userdata,
         BUY: {
           type: this.state.type,
           default: this.state.default,
@@ -57,8 +58,19 @@ class Predictions extends React.Component {
         isLoadedBuy: false
       })
 
-      //axios.post ('http://46.101.237.138/predict/', data)
-      axios.post('http://127.0.0.1:8000/predict/', data)
+      axios.post ('http://46.101.237.138/predict/', data)
+        .then( res => {
+          console.log(res)
+          this.setState({buy: res.data.Buy, isLoadedBuy: true})
+          console.log("neue buy im state")
+          this.setState({sell: res.data.Sell, isLoadedSell: true})
+          console.log("neue daten im state")
+        })
+        .catch(err => {
+            console.log(err)
+        })
+      
+      /*axios.post('http://127.0.0.1:8000/predict/', data)
           .then( res => {
               console.log(res)
               this.setState({buy: res.data.Buy, isLoadedBuy: true})
@@ -68,40 +80,60 @@ class Predictions extends React.Component {
           })
           .catch(err => {
               console.log(err)
-          })
+          })*/
 
      
       }
 
   handleTrade = async(tradetype, player_id, price) => {
+    let userdata = JSON.parse(localStorage.getItem('user'))
     const trade = {
+      userdata,
       type: tradetype,
       player_id: player_id,
       price: price
     }
     console.log(trade)
 
-    //axios.post ('http://46.101.237.138/trade/', trade)
-    axios.post('http://127.0.0.1:8000/trade/', trade)
-        .then( res => {
+    axios.post ('http://46.101.237.138/trade/', trade)
+     .then( res => {
             console.log(res)
-            this.setState({result: res.data.m})
          
         })
         .catch(err => {
             console.log(err)
         })
+    
+    /*axios.post('http://127.0.0.1:8000/trade/', trade)
+        .then( res => {
+            console.log(res)
+         
+        })
+        .catch(err => {
+            console.log(err)
+        })*/
+    
+    setTimeout(() => {this.getPrediction()}, 3000)
 
   }
 
 
   getPrediction = async () => {
-    axios.get('http://127.0.0.1:8000/predict/')
+    const data = JSON.parse(localStorage.getItem('user'))
+    console.log(data, "geparsed")
+    axios.post ('http://46.101.237.138/predict/', data)
+      .then(res => {
+        console.log(res)
+        this.setState({buy: res.data.Buy, isLoadedBuy: true})
+        this.setState({sell: res.data.Sell, isLoadedSell: true})
+      })
+
+    /*axios.get('http://127.0.0.1:8000/predict/')
     .then(res => {
         console.log(res)
         this.setState({buy: res.data.Buy, isLoadedBuy: true})
         this.setState({sell: res.data.Sell, isLoadedSell: true})
-    });
+    });*/
   }
   
   componentDidMount () {
@@ -152,7 +184,7 @@ class Predictions extends React.Component {
                                 <p><b>{data.first_name + " " + data.last_name}</b></p>
                                 <p>Price 
                                   <button className="btn btn-success float-right m-1" type="submit" name="BUY" 
-                                    onClick={() => this.handleTrade("BUY", (data.player_id +"a"), data.price)}>BUY</button>
+                                    onClick={() => this.handleTrade("BUY", data.player_id, data.price)}>BUY</button>
                                   <p><NumberFormat value={data.price} displayType={'text'} thousandSeparator={true} prefix="€ "/></p>
                                 </p>  
                                 
@@ -192,7 +224,7 @@ class Predictions extends React.Component {
                                 <p><b>{data.first_name + " " + data.last_name}</b></p> 
                                 <p>Possible profit
                                   <button className= "btn btnO btn-danger m-1 float-right" type="submit" name="SELL" 
-                                    onClick={() => this.handleTrade("SELL", (data.player_id), 0)}>SELL</button>
+                                    onClick={() => this.handleTrade("SELL", data.player_id, 0)}>SELL</button>
                                   <p><NumberFormat value={data.profit} displayType={'text'} thousandSeparator={true} prefix="€ "/></p>  
                                 </p>
                                 
@@ -203,7 +235,7 @@ class Predictions extends React.Component {
                 </div> 
           </div>
         
-            <div class="col-sm rounded-lg shadow-lg float-right ml-4 text-white" onSubmit={this.handleSubmit} style={{background: '#333'}}>
+            <div class="col-sm rounded-lg shadow-lg float-right ml-4 text-white h-25" onSubmit={this.handleSubmit} style={{background: '#333'}}>
               <p class="form-check-inline float-right mt-1">
                 <input type="checkbox" class="form-check-input" defaultChecked={this.state.default} name="default" onChange={this.handleDefault}/>
                 <label for="complex" class="form-check-label">Default</label>
@@ -225,7 +257,7 @@ class Predictions extends React.Component {
                 </p>
                 <p class="form-check-inline">
                   <input type="checkbox" class="form-check-input m-1" defaultChecked={this.state.complex_eval} disabled={this.state.default} name="complex_eval" onChange={this.handleCheckbox}/>
-                  <label for="complex" class="m-1 form-check-label">Complex evaluation</label>
+                  <label for="complex" class="m-1 form-check-label">Extended evaluation</label>
                 </p>
               </div>
               <div class="shadow-lg rounded-lg m-1 p-2" style={{background: '#333'}}>
@@ -244,13 +276,13 @@ class Predictions extends React.Component {
               <ul class="media">
                 <span class="badge badge-light p-1 mr-1">GOOD</span>
                 <div class="media-body">
-                  <label>Slight increase of marketvalue expected.</label>
+                  <label>Slight increase of market value expected.</label>
                 </div>
               </ul>
               <ul class="media">
                 <span class="badge badge-success p-1 mr-1">HIGH</span>
                 <div class="media-body">
-                  <label>Decent increase of marketvalue expected.</label>
+                  <label>Decent increase of market value expected.</label>
                 </div>
               </ul>
               <ul class="media">
@@ -264,19 +296,19 @@ class Predictions extends React.Component {
               <ul class="media mt-1">
                 <span class="badge badge-success p-1 mr-1">HOLD</span>
                 <div class="media-body">
-                  <label>Marketvalue expected to increase. Consider holding player a while longer.</label>
+                  <label>Market value expected to increase. Consider holding player a while longer.</label>
                 </div>
               </ul>
               <ul class="media"> 
                 <span class="badge badge-light p-1 mr-1">SELL</span>
                 <div class="media-body">
-                  <label>No major marketvalue change expected. Your decision!</label>
+                  <label>No major market value change expected. Your decision!</label>
                 </div>
               </ul>
               <ul class="media">
                 <span class="badge badge-danger p-1 mr-1">SELL</span>
                 <div class="media-body">
-                  <label>Decrease of marketvalue expected. Must sell!</label>
+                  <label>Decrease of market value expected. Must sell!</label>
                 </div>
               </ul>
               </div>

@@ -16,14 +16,12 @@ class PlayerData extends Component {
 
     componentDidMount () {
 
-        //axios.get('http://46.101.237.138/player/')
-        axios.get('http://127.0.0.1:8000/player/')
+        axios.post('http://46.101.237.138/player/', JSON.parse(localStorage.getItem('user')))
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.player, isLoaded: true})
-            });
+            })
     }
-
 
     render() {
         
@@ -33,7 +31,6 @@ class PlayerData extends Component {
         let plus;
         let procent;
         let position
-
 
         if (!isLoaded){
             return <div class="spinner-border text-success"/>
@@ -68,11 +65,11 @@ class PlayerData extends Component {
                                 <div class="media-body">
                                     <b>{data.first_name + " " + data.last_name}</b>
                                     <p><span class="badge badge-light p-1" > {position} </span> </p>
-                                    <p>Marketvalue <span class="float-right pr-3"><NumberFormat value={data.market_val} displayType={'text'} thousandSeparator={true} prefix="€ "/></span> </p>
+                                    <p>Market value <span class="float-right pr-3"><NumberFormat value={data.market_val} displayType={'text'} thousandSeparator={true} prefix="€ "/></span> </p>
                                     <l>Points <span class="float-right pr-3">{data.points}</span></l>
                                 </div>
                                 <div class="media-body p-3 float-right rounded-lg shadow-lg" style={{background: '#444'}}>
-                                    <p><span class="badge border p-1"> Marketvalue trend since purchased</span></p>
+                                    <p><span class="badge border p-1"> Market value trend since purchased</span></p>
                                     <p>{trend}</p>
                                     <p class="m-2">{plus}<NumberFormat value={data.market_val- data.market_val_purchased} displayType={'text'} thousandSeparator={true} prefix="€ "/>
                                         {procent}
@@ -80,15 +77,17 @@ class PlayerData extends Component {
                                 </div>
                             </ul>
                         );
-                     }) : null
+                    }) : null
                     }
                 </div>
             );
         }
     }
 }
-
-
-
 export default PlayerData;
 
+/*axios.get('http://127.0.0.1:8000/player/')
+            .then(res => {
+                console.log(res)
+                this.setState({items: res.data.player, isLoaded: true})
+            });*/

@@ -16,7 +16,7 @@ class Transactions extends React.Component {
           <div class="col p-2 m-3 text-white rounded-lg" style={{background: '#333'}}>
             <h2 class="text-center">Transactions</h2>
             <h6 class="font-italic text-danger text-center">pending</h6>
-            <TransferData/>
+            <TransferData user={this.props.user}/>
           </div>
         </ul>
 

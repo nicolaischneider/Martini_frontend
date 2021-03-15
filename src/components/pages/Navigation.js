@@ -6,12 +6,9 @@ import axios from 'axios';
 export default class Navigation extends Component {
     
     handleLogout = (e) => {
-        //axios.get ('http://46.101.237.138/logout/')
-        axios.get('http://127.0.0.1:8000/logout/')
-        localStorage.clear()
-        this.props.setUser(null)
-
-            
+        axios.post ('http://46.101.237.138/logout/', JSON.parse(localStorage.getItem('user')))
+            localStorage.clear()
+            this.props.setLogged(false)      
     }
 
 
@@ -19,15 +16,16 @@ export default class Navigation extends Component {
         
         let logoutButton;
 
-        if (this.props.user){
-            logoutButton = (
-            <div className="form-group" >
-                <Link className="btn btnO btn-primary" to="/login" onClick= {this.handleLogout}>Log out</Link>
-            </div> 
-            )
-        }else{
+        if (localStorage.getItem('user')=== null){
             logoutButton = (
                 null
+            ) 
+        }
+        else{
+            logoutButton = (
+                <div className="form-group" >
+                    <Link className="btn btnO btn-primary" to="/login" onClick= {this.handleLogout}>Log out</Link>
+                </div> 
             )
         }
 
@@ -60,3 +58,11 @@ export default class Navigation extends Component {
     }
 
 }
+
+
+        
+        /*axios.get('http://127.0.0.1:8000/logout/')
+        localStorage.clear()
+        this.props.setLogged(false)*/
+
+      

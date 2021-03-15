@@ -14,12 +14,11 @@ class FinancesData extends Component {
 
     componentDidMount () {
 
-        //axios.get('http://46.101.237.138/transactions/')
-        axios.get('http://127.0.0.1:8000/transactions/')
+        axios.post('http://46.101.237.138/transactions/', JSON.parse(localStorage.getItem('user')))
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.transactions, isLoaded: true})
-            });
+            }) 
     }
 
     render() {
@@ -35,6 +34,7 @@ class FinancesData extends Component {
                     {
                     items.length ?
                     items.map(data => {
+
                         if (data.transaction_type === "SALE"){
                             action = (<p class="badge badge-danger p-1 m-1 float-right">{data.transaction_type} </p>)
                         }
@@ -55,13 +55,15 @@ class FinancesData extends Component {
                         );
                      }) : null
                     }
-                </ul>
-                
+                </ul>  
             );
         }
     }
-
 }
-
 export default FinancesData;
 
+ /*axios.get('http://127.0.0.1:8000/transactions/')
+            .then(res => {
+                console.log(res)
+                this.setState({items: res.data.transactions, isLoaded: true})
+            });*/

@@ -1,6 +1,6 @@
-
-import React, { Component, /*useState*/ } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
 import Navigation from './components/pages/Navigation';
@@ -14,11 +14,47 @@ import axios from 'axios';
 
 class App extends Component {
   state = {
-    
-    
   }
 
-  componentDidMount = () => {
+  setLogged = (status) => {
+    this.setState ({
+      loggedIn: status 
+  })
+  }
+  
+  render() {
+    
+    
+        return (
+            <BrowserRouter>
+              <div className="App">
+                <div>
+                  <Navigation user ={this.user} loggedIn={this.state.loggedIn} setLogged={this.setLogged}/>
+                </div>
+                <div class="row" style={{margin:'100px 30px'}}>
+                  <div class="col-sm-3">
+                    <UserData/>
+                  </div>
+                  <div class="col-sm-8">
+                    <Switch>
+                    <PrivateRoute exact path="/" component={Home}/>
+                    <Route exact path="/login" component={() => <Login setLogged={this.setLogged} loggedIn ={this.loggedIn}/>}/> 
+                    <PrivateRoute exact path="/allplayers" component={PlayerData}/>
+                    <PrivateRoute path="/predictions" component={Predictions} />
+                    <PrivateRoute path="/finances" component={Transactions} />
+                    </Switch>
+                  </div>
+                </div>
+              </div>
+            </BrowserRouter>    
+        
+        );
+  }
+}
+export default App;
+
+
+ /* componentDidMount = () => {
     axios.get('http://127.0.0.1:8000/userstats/')
       .then(res => {
         console.log(res)
@@ -31,42 +67,14 @@ class App extends Component {
     this.setState ({
       user: user 
   })
-  }
-
-  setLogged = (status) => {
-    this.setState ({
-      loggedIn: status 
-  })
-  }
-  
-  render() {
-  
-        return (
-            <BrowserRouter>
-              <div className="App">
-                <div>
-                  <Navigation user={this.state.user} setUser={this.setUser}/>
-                </div>
-                <div class="row" style={{margin:'100px 30px'}}>
-                  <div class="col-sm-3">
-                    <UserData/>
-                  </div>
-                  <div class="col-sm-8">
-                    <Switch>
-                    <Route exact path="/" component={() => <Home user={this.state.user} />}/>
-                    <Route exact path="/login" component={() => <Login setUser={this.setUser} setLogged={this.setLogged}/>}/> 
-                    <Route exact path="/allplayers" component={PlayerData}/>
-                    <Route path="/predictions" component={Predictions} />
-                    <Route path="/finances" component={Transactions} />
-                    </Switch>
-                  </div>
-                </div>
-              </div>
-            </BrowserRouter>    
-        
-        );
-  }
-}
-
-
-export default App;
+  }*/
+  /*constructor(){
+    super()
+    const userdata = localStorage.getItem('user')
+    console.log(userdata)
+    const user = ({
+      LOGIN: {
+        userdata
+      }
+    })
+  }*/

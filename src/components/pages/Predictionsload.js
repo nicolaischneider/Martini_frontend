@@ -34,7 +34,7 @@ class Predictionsload extends React.Component {
                 </p>
                 <p class="form-check-inline">
                   <input type="checkbox" class="form-check-input m-1"  name="complex_eval" disabled/>
-                  <label for="complex" class="m-1 form-check-label">Complex evaluation</label>
+                  <label for="complex" class="m-1 form-check-label">Extended evaluation</label>
                 </p>
               </div>
               <div class="shadow-lg rounded-lg m-1 p-2" style={{background: '#333'}}>
@@ -53,13 +53,13 @@ class Predictionsload extends React.Component {
               <ul class="media">
                 <span class="badge badge-light p-1 mr-1">GOOD</span>
                 <div class="media-body">
-                  <label>Slight increase of marketvalue expected.</label>
+                  <label>Slight increase of market value expected.</label>
                 </div>
               </ul>
               <ul class="media">
                 <span class="badge badge-success p-1 mr-1">HIGH</span>
                 <div class="media-body">
-                  <label>Decent increase of marketvalue expected.</label>
+                  <label>Decent increase of market value expected.</label>
                 </div>
               </ul>
               <ul class="media">
@@ -73,19 +73,19 @@ class Predictionsload extends React.Component {
               <ul class="media mt-1">
                 <span class="badge badge-success p-1 mr-1">HOLD</span>
                 <div class="media-body">
-                  <label>Marketvalue expected to increase. Consider holding player a while longer.</label>
+                  <label>Market value expected to increase. Consider holding player a while longer.</label>
                 </div>
               </ul>
               <ul class="media"> 
                 <span class="badge badge-light p-1 mr-1">SELL</span>
                 <div class="media-body">
-                  <label>No major marketvalue change expected. Your decision!</label>
+                  <label>No major market value change expected. Your decision!</label>
                 </div>
               </ul>
               <ul class="media">
                 <span class="badge badge-danger p-1 mr-1">SELL</span>
                 <div class="media-body">
-                  <label>Decrease of marketvalue expected. Must sell!</label>
+                  <label>Decrease of market value expected. Must sell!</label>
                 </div>
               </ul>
               </div>
