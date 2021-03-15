@@ -6,11 +6,10 @@ import axios from 'axios';
 export default class Navigation extends Component {
     
     handleLogout = (e) => {
-        axios.post ('http://46.101.237.138/logout/', JSON.parse(localStorage.getItem('user')))
+        axios.post ('logout/', JSON.parse(localStorage.getItem('user')))
             localStorage.clear()
             this.props.setLogged(false)      
     }
-
 
     render () {
         
@@ -38,13 +37,13 @@ export default class Navigation extends Component {
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                        <Link className="nav-link" to="/allplayers" activeStyle={{color: 'green'}}> Team </Link>  
+                        <Link className="nav-link" to="/allplayers" > Team </Link>  
                         </li>
                         <li className="nav-item">
-                        <Link className="nav-link" to="/predictions" activeStyle={{color: 'green'}}> Recommendations </Link>  
+                        <Link className="nav-link" to="/predictions" > Recommendations </Link>  
                         </li>
                         <li className="nav-item">
-                        <Link className="nav-link" to="/finances" activeStyle={{color: 'green'}}> Transactions </Link> 
+                        <Link className="nav-link" to="/finances" > Transactions </Link> 
                         </li>
                         
                     </ul>
@@ -56,13 +55,6 @@ export default class Navigation extends Component {
             </nav>
         )
     }
-
 }
-
-
-        
-        /*axios.get('http://127.0.0.1:8000/logout/')
-        localStorage.clear()
-        this.props.setLogged(false)*/
 
       

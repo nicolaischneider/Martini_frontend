@@ -14,7 +14,7 @@ class FinancesData extends Component {
 
     componentDidMount () {
 
-        axios.post('http://46.101.237.138/transactions/', JSON.parse(localStorage.getItem('user')))
+        axios.post('transactions/', JSON.parse(localStorage.getItem('user')))
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.transactions, isLoaded: true})
@@ -60,10 +60,5 @@ class FinancesData extends Component {
         }
     }
 }
-export default FinancesData;
 
- /*axios.get('http://127.0.0.1:8000/transactions/')
-            .then(res => {
-                console.log(res)
-                this.setState({items: res.data.transactions, isLoaded: true})
-            });*/
+export default FinancesData;

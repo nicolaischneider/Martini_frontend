@@ -25,15 +25,15 @@ class Login extends React.Component {
     
         console.log(data)
 
-        axios.post ('http://46.101.237.138/login/', data)
+        axios.post ('login/', data)
             .then( res => {
                 console.log(res)
-                const userdata = (res.config.data)
-                console.log(userdata)
-                const user = ({
-                    LOGIN: 
-                        userdata
-                  })
+                const user = {
+                    LOGIN: {
+                        email: data.email,
+                        pw: data.pw
+                    }       
+                }
                 console.log(user)
                 console.log(JSON.stringify(user))
                 localStorage.setItem('user', JSON.stringify(user))
@@ -53,7 +53,7 @@ class Login extends React.Component {
         }
         else {
             return (
-                
+
                 <form className="p-3 mt-5 w-50 mx-auto rounded-lg" style={{background: '#333'}} onSubmit={this.handleSubmit}>
                     <h1 class="text-light" >Welcome!</h1>   
                     <h5 class="text-light">Please log in to your Martini account.</h5>  
@@ -73,15 +73,5 @@ class Login extends React.Component {
         }
     }
 }
-export default Login;
 
-/*axios.post('http://127.0.0.1:8000/login/', data)
-            .then( res => {
-                console.log(res)
-                localStorage.setItem('user', res.config.data)
-                this.setState ({loggedIn: res.data.loggedIn})
-                this.props.setLogged(res.data.loggedIn)
-            })
-            .catch(err => {
-                console.log(err)
-            })*/
+export default Login;

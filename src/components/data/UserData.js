@@ -15,7 +15,7 @@ class UserData extends Component {
     componentDidMount () {
         console.log("daten userstats")
         console.log(JSON.parse(localStorage.getItem('user')))
-        axios.post('http://46.101.237.138/userstats/', JSON.parse(localStorage.getItem('user')))
+        axios.post('userstats/', JSON.parse(localStorage.getItem('user')))
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data, isLoaded: true})
@@ -26,8 +26,8 @@ class UserData extends Component {
         
         const { items, isLoaded } = this.state;
 
-        if (!isLoaded){
-            return <div class="spinner-border text-success"/>
+        if (!isLoaded |localStorage.getItem('user')===null){
+            return null
         }else{
             return (
                 <div className="col-sm p-3 text-white rounded-lg shadow-lg" style={{background: '#333'}}>
@@ -41,10 +41,3 @@ class UserData extends Component {
 }
 
 export default UserData;
-
- 
-        /*axios.get('http://127.0.0.1:8000/userstats/')
-            .then(res => {
-                console.log(res)
-                this.setState({items: res.data, isLoaded: true})
-            });*/

@@ -13,8 +13,7 @@ class Predictions extends React.Component {
       default: true,
       complex_eval: false,
       considered_days: 3,
-      min_profit: 15,
-  
+      min_profit: 15
   }
 
   handleChange = (e) => {
@@ -38,110 +37,86 @@ class Predictions extends React.Component {
 
   handleSubmit = async(e) => {
     e.preventDefault()
-      let userdata = JSON.parse(localStorage.getItem('user'))
-      const data = {
-        userdata,
-        BUY: {
-          type: this.state.type,
-          default: this.state.default,
-          complex_eval: this.state.complex_eval,
-          considered_days: this.state.considered_days,
-        }, 
-        SELL: {
-          default: this.state.default,
-          min_profit: this.state.min_profit
-        }
+
+    let userdata = JSON.parse(localStorage.getItem('user'))
+
+    const data = { 
+      LOGIN: {
+        email: userdata["LOGIN"]["email"],
+        pw: userdata["LOGIN"]["pw"]
+      }, 
+      BUY: {
+        type: this.state.type,
+        default: this.state.default,
+        complex_eval: this.state.complex_eval,
+        considered_days: this.state.considered_days,
+      }, 
+      SELL: {
+        default: this.state.default,
+        min_profit: this.state.min_profit
       }
-      console.log(data)
-      this.setState({
-        isLoadedSell: false,
-        isLoadedBuy: false
+    }
+    console.log(data)
+
+    this.setState({
+      isLoadedSell: false,
+      isLoadedBuy: false
+    })
+
+    axios.post ('predict/', data)
+      .then( res => {
+        console.log(res)
+        this.setState({buy: res.data.Buy, isLoadedBuy: true})
+        console.log("neue buy im state")
+        this.setState({sell: res.data.Sell, isLoadedSell: true})
+        console.log("neue daten im state")
       })
-
-      axios.post ('http://46.101.237.138/predict/', data)
-        .then( res => {
-          console.log(res)
-          this.setState({buy: res.data.Buy, isLoadedBuy: true})
-          console.log("neue buy im state")
-          this.setState({sell: res.data.Sell, isLoadedSell: true})
-          console.log("neue daten im state")
-        })
-        .catch(err => {
-            console.log(err)
-        })
-      
-      /*axios.post('http://127.0.0.1:8000/predict/', data)
-          .then( res => {
-              console.log(res)
-              this.setState({buy: res.data.Buy, isLoadedBuy: true})
-              console.log("neue buy im state")
-              this.setState({sell: res.data.Sell, isLoadedSell: true})
-              console.log("neue daten im state")
-          })
-          .catch(err => {
-              console.log(err)
-          })*/
-
-     
-      }
+      .catch(err => {
+          console.log(err)
+      })  
+  }
 
   handleTrade = async(tradetype, player_id, price) => {
+
     let userdata = JSON.parse(localStorage.getItem('user'))
+
     const trade = {
-      userdata,
+      LOGIN: {
+        email: userdata["LOGIN"]["email"],
+        pw: userdata["LOGIN"]["pw"]
+      },
       type: tradetype,
       player_id: player_id,
       price: price
     }
     console.log(trade)
 
-    axios.post ('http://46.101.237.138/trade/', trade)
+    axios.post ('trade/', trade)
      .then( res => {
             console.log(res)
-         
         })
         .catch(err => {
             console.log(err)
         })
-    
-    /*axios.post('http://127.0.0.1:8000/trade/', trade)
-        .then( res => {
-            console.log(res)
-         
-        })
-        .catch(err => {
-            console.log(err)
-        })*/
-    
-    setTimeout(() => {this.getPrediction()}, 3000)
 
+    setTimeout(() => {this.getPrediction()}, 3000)
   }
 
-
   getPrediction = async () => {
+
     const data = JSON.parse(localStorage.getItem('user'))
-    console.log(data, "geparsed")
-    axios.post ('http://46.101.237.138/predict/', data)
+
+    axios.post ('predict/', data)
       .then(res => {
         console.log(res)
         this.setState({buy: res.data.Buy, isLoadedBuy: true})
         this.setState({sell: res.data.Sell, isLoadedSell: true})
       })
-
-    /*axios.get('http://127.0.0.1:8000/predict/')
-    .then(res => {
-        console.log(res)
-        this.setState({buy: res.data.Buy, isLoadedBuy: true})
-        this.setState({sell: res.data.Sell, isLoadedSell: true})
-    });*/
   }
   
   componentDidMount () {
     this.getPrediction();
   }
-
-        
-  
   
   render () {
 
@@ -154,87 +129,82 @@ class Predictions extends React.Component {
           <Predictionsload/>
         )
     }else{
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <ul class="row" >
-          <div class="col-sm-4 p-2 ml-2 mb-2 text-white rounded-lg" style={{background: '#333'}}>
-            <h2 class="text-success text-center">BUY</h2>
-            <div>
-              
-                    {
-                    buy.length ?    
-                    buy.map(data => {
-                      if (data.analysis){
-                        if (data.analysis === 1){
-                          recBuy = (<span class="badge badge-light p-1">GOOD</span>)
-                        }
-                        else if (data.analysis === 2){
-                          recBuy = (<span class="badge badge-success p-1">HIGH</span>)
-                        }
-                        else if (data.analysis === 3){
-                          recBuy = (<span class="badge badge-success p-1">VERY HIGH</span>)
-                        }
-                      }
-                      else {
-                        recBuy = ("")
-                      }
-                        return (
-                            <div class="shadow m-2 p-2 rounded-lg" key={data.player_id} style={{background: '#444'}}>
-                                <div class="float-right">{recBuy}</div>
-                                <p><b>{data.first_name + " " + data.last_name}</b></p>
-                                <p>Price 
-                                  <button className="btn btn-success float-right m-1" type="submit" name="BUY" 
-                                    onClick={() => this.handleTrade("BUY", data.player_id, data.price)}>BUY</button>
-                                  <p><NumberFormat value={data.price} displayType={'text'} thousandSeparator={true} prefix="€ "/></p>
-                                </p>  
-                                
-                            </div>
-                        );
-                     }) : null
+      return (
+        <form onSubmit={this.handleSubmit}>
+          <ul class="row" >
+            <div class="col-sm-4 p-2 ml-2 mb-2 text-white rounded-lg" style={{background: '#333'}}>
+              <h2 class="text-success text-center">BUY</h2>
+              <div>
+                {
+                buy.length ?    
+                buy.map(data => {
+                  if (data.analysis){
+                    if (data.analysis === 1){
+                      recBuy = (<span class="badge badge-light p-1">GOOD</span>)
                     }
-                </div>
-          </div>
-          <div class="col-sm-4 p-2 ml-2 mb-2 text-white rounded-lg" style={{background: '#333'}}>
-            <h2 class="text-danger text-center">SELL</h2>
-            <div>
-              
-                    {
-                    sell.length ?
-                    sell.map(data => {
-                      if (data.analysis){
-                        if (data.analysis === -1){
-                          recSell = ("")
-                        }
-                        else if (data.analysis === 1){
-                          recSell = (<span class="badge badge-danger p-1">SELL</span>)
-                        }
-                        else if (data.analysis === 2){
-                          recSell = (<span class="badge badge-light p-1">SELL</span>)
-                        }
-                        else if (data.analysis === 3){
-                          recSell = (<span class="badge badge-success p-1">HOLD</span>)
-                        }
-                      }
-                      else {
-                        recSell = ("")
-                      }
-                        return (
-                            <div class="shadow m-2 p-2 rounded-lg" key={data.player_id} style={{background: '#444'}}>
-                                <div class="float-right">{recSell}</div>
-                                <p><b>{data.first_name + " " + data.last_name}</b></p> 
-                                <p>Possible profit
-                                  <button className= "btn btnO btn-danger m-1 float-right" type="submit" name="SELL" 
-                                    onClick={() => this.handleTrade("SELL", data.player_id, 0)}>SELL</button>
-                                  <p><NumberFormat value={data.profit} displayType={'text'} thousandSeparator={true} prefix="€ "/></p>  
-                                </p>
-                                
-                            </div>
-                        );
-                     }) : null
+                    else if (data.analysis === 2){
+                      recBuy = (<span class="badge badge-success p-1">HIGH</span>)
                     }
-                </div> 
-          </div>
-        
+                    else if (data.analysis === 3){
+                      recBuy = (<span class="badge badge-success p-1">VERY HIGH</span>)
+                    }
+                  }
+                  else {
+                    recBuy = ("")
+                  }
+                  return (
+                    <div class="shadow m-2 p-2 rounded-lg" key={data.player_id} style={{background: '#444'}}>
+                      <div class="float-right">{recBuy}</div>
+                      <p><b>{data.first_name + " " + data.last_name}</b></p>
+                      <p>Price 
+                        <button className="btn btn-success float-right m-1" type="submit" name="BUY" 
+                          onClick={() => this.handleTrade("BUY", data.player_id, data.price)}>BUY</button>
+                        <p><NumberFormat value={data.price} displayType={'text'} thousandSeparator={true} prefix="€ "/></p>
+                      </p>     
+                    </div>
+                  );
+                }) : null
+                }
+              </div>
+            </div>
+            <div class="col-sm-4 p-2 ml-2 mb-2 text-white rounded-lg" style={{background: '#333'}}>
+              <h2 class="text-danger text-center">SELL</h2>
+              <div>
+                {
+                sell.length ?
+                sell.map(data => {
+                  if (data.analysis){
+                    if (data.analysis === -1){
+                      recSell = ("")
+                    }
+                    else if (data.analysis === 1){
+                      recSell = (<span class="badge badge-danger p-1">SELL</span>)
+                    }
+                    else if (data.analysis === 2){
+                      recSell = (<span class="badge badge-light p-1">SELL</span>)
+                    }
+                    else if (data.analysis === 3){
+                      recSell = (<span class="badge badge-success p-1">HOLD</span>)
+                    }
+                  }
+                  else {
+                    recSell = ("")
+                  }
+                  return (
+                    <div class="shadow m-2 p-2 rounded-lg" key={data.player_id} style={{background: '#444'}}>
+                      <div class="float-right">{recSell}</div>
+                      <p><b>{data.first_name + " " + data.last_name}</b></p> 
+                      <p>Possible profit
+                        <button className= "btn btnO btn-danger m-1 float-right" type="submit" name="SELL" 
+                          onClick={() => this.handleTrade("SELL", data.player_id, 0)}>SELL</button>
+                        <p><NumberFormat value={data.profit} displayType={'text'} thousandSeparator={true} prefix="€ "/></p>  
+                      </p>
+                    </div>
+                  );
+                }) : null
+                }
+              </div> 
+            </div>
             <div class="col-sm rounded-lg shadow-lg float-right ml-4 text-white h-25" onSubmit={this.handleSubmit} style={{background: '#333'}}>
               <p class="form-check-inline float-right mt-1">
                 <input type="checkbox" class="form-check-input" defaultChecked={this.state.default} name="default" onChange={this.handleDefault}/>
@@ -271,64 +241,53 @@ class Predictions extends React.Component {
               </p>
             </div>  
             <div class="float-right rounded-lg w-50 text-white mt-5 p-2" style={{background: '#333'}}>
-            <label>The following badges are supposed to help you with your buy and sell decision by indicating the forecasted market value trend.</label>
-            <div class="m-2 p-1 rounded-lg shadow-lg" style={{background: '#444'}}>
-              <ul class="media">
-                <span class="badge badge-light p-1 mr-1">GOOD</span>
-                <div class="media-body">
-                  <label>Slight increase of market value expected.</label>
-                </div>
-              </ul>
-              <ul class="media">
-                <span class="badge badge-success p-1 mr-1">HIGH</span>
-                <div class="media-body">
-                  <label>Decent increase of market value expected.</label>
-                </div>
-              </ul>
-              <ul class="media">
-                <span class="badge badge-success p-1 mr-1">VERY HIGH</span>
-                <div class="media-body">
-                  <label>Must buy!</label>
-                </div>
-              </ul>
+              <label>The following badges are supposed to help you with your buy and sell decision by indicating the forecasted market value trend.</label>
+              <div class="m-2 p-1 rounded-lg shadow-lg" style={{background: '#444'}}>
+                <ul class="media">
+                  <span class="badge badge-light p-1 mr-1">GOOD</span>
+                  <div class="media-body">
+                    <label>Slight increase of market value expected.</label>
+                  </div>
+                </ul>
+                <ul class="media">
+                  <span class="badge badge-success p-1 mr-1">HIGH</span>
+                  <div class="media-body">
+                    <label>Decent increase of market value expected.</label>
+                  </div>
+                </ul>
+                <ul class="media">
+                  <span class="badge badge-success p-1 mr-1">VERY HIGH</span>
+                  <div class="media-body">
+                    <label>Must buy!</label>
+                  </div>
+                </ul>
               </div> 
               <div class="m-2 p-1 rounded-lg shadow-lg" style={{background: '#444'}}>
-              <ul class="media mt-1">
-                <span class="badge badge-success p-1 mr-1">HOLD</span>
-                <div class="media-body">
-                  <label>Market value expected to increase. Consider holding player a while longer.</label>
-                </div>
-              </ul>
-              <ul class="media"> 
-                <span class="badge badge-light p-1 mr-1">SELL</span>
-                <div class="media-body">
-                  <label>No major market value change expected. Your decision!</label>
-                </div>
-              </ul>
-              <ul class="media">
-                <span class="badge badge-danger p-1 mr-1">SELL</span>
-                <div class="media-body">
-                  <label>Decrease of market value expected. Must sell!</label>
-                </div>
-              </ul>
+                <ul class="media mt-1">
+                  <span class="badge badge-success p-1 mr-1">HOLD</span>
+                  <div class="media-body">
+                    <label>Market value expected to increase. Consider holding player a while longer.</label>
+                  </div>
+                </ul>
+                <ul class="media"> 
+                  <span class="badge badge-light p-1 mr-1">SELL</span>
+                  <div class="media-body">
+                    <label>No major market value change expected. Your decision!</label>
+                  </div>
+                </ul>
+                <ul class="media">
+                  <span class="badge badge-danger p-1 mr-1">SELL</span>
+                  <div class="media-body">
+                    <label>Decrease of market value expected. Must sell!</label>
+                  </div>
+                </ul>
               </div>
             </div>
-         
-        </ul>
-      </form> 
-      
-      
-     
-        
-        
-     
-
-        
-
-
-    )
+          </ul>
+        </form> 
+      )
+    }
   }
-}}
-
+}
 
 export default Predictions;

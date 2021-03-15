@@ -15,8 +15,9 @@ class PlayerData extends Component {
     }
 
     componentDidMount () {
-
-        axios.post('http://46.101.237.138/player/', JSON.parse(localStorage.getItem('user')))
+        const data = JSON.parse(localStorage.getItem('user'))
+        console.log(data)
+        axios.post('player/', data)
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.player, isLoaded: true})
@@ -84,10 +85,5 @@ class PlayerData extends Component {
         }
     }
 }
-export default PlayerData;
 
-/*axios.get('http://127.0.0.1:8000/player/')
-            .then(res => {
-                console.log(res)
-                this.setState({items: res.data.player, isLoaded: true})
-            });*/
+export default PlayerData;

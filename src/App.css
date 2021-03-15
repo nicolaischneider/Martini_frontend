@@ -27,24 +27,6 @@ a {
 
 }
 
-.headerStyle  {
-  background: #222;
-  color: white;
-  padding: 1% 1%;
- 
-}
-
-.linkStyle {
-  color: #999;
-  padding: 0,5%;
-  font-size: 70%;
-  margin-left: 3%;
-}
-
-.linkStyle:hover {
-  color: white;
-}
-
 .container {
   padding: 0 0;
 }

@@ -8,55 +8,45 @@ class TransferData extends Component {
         super(props);
         this.state = {
             items: {},
-            isLoaded: false,
-           
-        };
+            isLoaded: false, 
+        }
     }
 
     componentDidMount () {
-        this.getOffers();
-        
+        this.getOffers();   
     }
 
     getOffers = async () => {
+
         console.log("transfer")
         console.log(JSON.parse(localStorage.getItem('user')))
-        axios.post ('http://46.101.237.138/offers/', JSON.parse(localStorage.getItem('user')))
+
+        axios.post ('offers/', JSON.parse(localStorage.getItem('user')))
             .then(res => {
                 console.log(res)
                 this.setState({items: res.data.offers, isLoaded: true})
-            })
-        
-        /*axios.get('http://127.0.0.1:8000/offers/')
-            .then(res => {
-                console.log(res)
-                this.setState({items: res.data.offers, isLoaded: true})
-            })*/
+            })   
     }
 
     acceptOffer = async (offer_id, player_id) => {
         
         let userdata = JSON.parse(localStorage.getItem('user'))
         const data = {
-            userdata,
+            LOGIN: {
+                email: userdata["LOGIN"]["email"],
+                pw: userdata["LOGIN"]["pw"]
+              },
             offer_id: offer_id,
             player_id: player_id
         }
         
-        axios.post('http://46.101.237.138/acceptoffer/', data)
+        axios.post('acceptoffer/', data)
             .then(res => {
                 console.log(res)
                 this.setState({sold: res.data.m})
             })
             .catch(err => console.log(err))
-        
-        /*axios.post('http://127.0.0.1:8000/acceptoffer/', data)
-            .then(res => {
-                console.log(res)
-                this.setState({sold: res.data.m})
-            })
-            .catch(err => console.log(err))*/
-
+  
         setTimeout(() => {this.getOffers()}, 3000)
     }
 
@@ -93,15 +83,12 @@ class TransferData extends Component {
                                 
                             </div>
                         );
-                     }) : null
+                    }) : null
                     }
-                </ul>
-                
+                </ul>   
             );
         }
     }
-
 }
 
 export default TransferData;
-
